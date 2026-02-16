@@ -1,76 +1,29 @@
-const express = require("express");
-const dotenv = require("dotenv");
-const path = require("path");
-const dataService = require("./data-service");
+require('dotenv').config();
+const express = require('express');
+const path = require('path');
 
 const app = express();
-dotenv.config();
+const PORT = process.env.PORT || 3000;
 
-// set HTTP_PORT
-const HTTP_PORT = process.env.PORT || 8080;
+// Middleware
+app.use(express.static('public'));
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
-// set static folder
-app.use(express.static(path.join(__dirname, "public")));
-
-// home route
-app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "views", "home.html"));
+// Routes
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'index.html'));
 });
 
-// about route
-app.get("/about", (req, res) => {
-  res.sendFile(path.join(__dirname, "views", "about.html"));
+app.get('/booking', (req, res) => {
+  res.sendFile(path.join(__dirname, 'booking.html'));
 });
 
-// employees route
-app.get("/employees", (req, res) => {
-  dataService
-    .getAllEmployees()
-    .then((data) => {
-      res.json(data);
-    })
-    .catch((err) => {
-      res.json({ message: err });
-    });
+app.get('/landscaping', (req, res) => {
+  res.sendFile(path.join(__dirname, 'landscaping.html'));
 });
 
-// managers route
-app.get("/managers", (req, res) => {
-  dataService
-    .getManagers()
-    .then((data) => {
-      res.json(data);
-    })
-    .catch((err) => {
-      res.json({ message: err });
-    });
+// Start server
+app.listen(PORT, () => {
+  console.log(`Server running on http://localhost:${PORT}`);
 });
-
-// departments route
-app.get("/departments", (req, res) => {
-  dataService
-    .getDepartments()
-    .then((data) => {
-      res.json(data);
-    })
-    .catch((err) => {
-      res.json({ message: err });
-    });
-});
-
-// 404 error handler for undefined routes
-app.use((req, res) => {
-  res.status(404).sendFile(path.join(__dirname, "views", "404.html"));
-});
-
-// setup server - only start if data initialization is successful
-dataService
-  .initialize()
-  .then(() => {
-    app.listen(HTTP_PORT, () => {
-      console.log(`Express http server listening on port ${HTTP_PORT}`);
-    });
-  })
-  .catch((err) => {
-    console.log(`Failed to initialize data service: ${err}`);
-  });
