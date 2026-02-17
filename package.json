@@ -6,7 +6,7 @@
     "start": "node server.js",
     "dev": "nodemon server.js"
   },
-  "author": "Jackson McCullough",
+  "author": "Enrique Lopez",
   "license": "ISC",
   "description": "",
   "dependencies": {
