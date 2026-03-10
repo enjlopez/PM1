@@ -1,0 +1,14 @@
+{
+  "dummyData": [
+    {
+      "id": 1,
+      "name": "Sample Task 1",
+      "description": "This is a sample task."
+    },
+    {
+      "id": 2,
+      "name": "Sample Task 2",
+      "description": "This is another sample task."
+    }
+  ]
+}

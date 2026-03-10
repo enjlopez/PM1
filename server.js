@@ -10,6 +10,10 @@ app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+// Set EJS as the view engine
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
+
 // Routes
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'));
@@ -20,10 +24,37 @@ app.get('/booking', (req, res) => {
 });
 
 app.get('/landscaping', (req, res) => {
-  res.sendFile(path.join(__dirname, 'landscaping.html'));
+  res.render('landscaping', { services: landscapingServices });
 });
 
-// Start server
+const landscapingServices = [];
+
+app.post('/api/landscaping', (req, res) => {
+  const { serviceType, date, notes } = req.body;
+  const newService = { serviceType, date, notes };
+  landscapingServices.push(newService);
+  res.status(201).json(newService);
+});
+
+app.get('/api/landscaping', (req, res) => {
+  res.json(landscapingServices);
+});
+
+app.get('/api/landscaping/search', (req, res) => {
+  const { serviceType, date } = req.query;
+  let filteredServices = landscapingServices;
+
+  if (serviceType) {
+    filteredServices = filteredServices.filter(service => service.serviceType === serviceType);
+  }
+
+  if (date) {
+    filteredServices = filteredServices.filter(service => service.date === date);
+  }
+
+  res.json(filteredServices);
+});
+
 app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
+  console.log(`Server is running on http://localhost:${PORT}`);
 });

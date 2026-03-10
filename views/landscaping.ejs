@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Landscaping Services</title>
+  <link rel="stylesheet" href="/styles/styles.css">
+</head>
+<body>
+  <header>
+    <h1>Landscaping Services</h1>
+  </header>
+  <main>
+    <table>
+      <thead>
+        <tr>
+          <th>Service Type</th>
+          <th>Date</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% services.forEach(service => { %>
+          <tr>
+            <td><%= service.serviceType %></td>
+            <td><%= service.date %></td>
+            <td><%= service.notes %></td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </main>
+</body>
+</html>

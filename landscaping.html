@@ -24,8 +24,142 @@
   </div>
 </nav>
 
-<p> This page will be specified for the new add-on of landscpaping when the company is ready to add </p>
-<p> Customers will be able to schedule land scaping services and recieve a quote from this page <br>
-this page is in very early production and still in the planning phase</p>
+<header class="hero">
+  <div class="hero-content">
+    <img src="/images/DFD.jpg" alt="Diamond Finish Landscaping Logo" class="logo">
+    <h1 class="hero-title">Diamond Finish Landscaping</h1>
+    <p class="hero-subtitle">Professional landscaping services — enhancing your outdoor spaces.</p>
+  </div>
+  <div class="hero-overlay"></div>
+</header>
+
+<main>
+  <section class="section about-section">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">About Our Landscaping Services</h2>
+        <div class="title-underline"></div>
+      </div>
+      <div class="about-content">
+        <p class="about-text">
+          At Diamond Finish Landscaping, we provide top-notch landscaping services to transform your outdoor spaces. From mowing and planting to mulching, our team ensures your satisfaction with every project.
+        </p>
+        <div class="landscaping-gallery">
+          <img src="/images/BeforeLandscaping.jpg" alt="Before Landscaping" class="gallery-image">
+          <img src="/images/DuringLandscaping.jpg" alt="During Landscaping" class="gallery-image">
+          <img src="/images/FinishedLandscaping.jpg" alt="Finished Landscaping" class="gallery-image">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section landscaping-services">
+    <div class="container">
+      <form id="landscaping-form" class="styled-form">
+        <div class="form-group">
+          <label for="service-type">Service Type:</label>
+          <select id="service-type" name="service-type">
+            <option value="mowing">Mowing</option>
+            <option value="planting">Planting</option>
+            <option value="mulching">Mulching</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="date">Preferred Date:</label>
+          <input type="date" id="date" name="date" required>
+        </div>
+
+        <div class="form-group">
+          <label for="notes">Additional Notes:</label>
+          <textarea id="notes" name="notes" placeholder="Enter any specific requirements..."></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+
+      <table id="services-table" class="styled-table">
+        <thead>
+          <tr>
+            <!-- Table headers removed -->
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Placeholder for dynamically added rows -->
+        </tbody>
+      </table>
+    </div>
+  </section>
+</main>
+
+<style>
+  .styled-form .form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+
+  .styled-form .form-group select,
+  .styled-form .form-group input,
+  .styled-form .form-group textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: border-color 0.3s ease;
+  }
+
+  .styled-form .form-group select:focus,
+  .styled-form .form-group input:focus,
+  .styled-form .form-group textarea:focus {
+    border-color: #007bff;
+    outline: none;
+  }
+
+  .landscaping-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
+    align-items: start;
+  }
+
+  .landscaping-gallery img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    display: block;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border);
+    transition: var(--transition);
+  }
+</style>
+
+<script>
+  const form = document.getElementById('landscaping-form');
+  const tableBody = document.getElementById('services-table').querySelector('tbody');
+
+  form.addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    const serviceType = document.getElementById('service-type').value;
+    const date = document.getElementById('date').value;
+    const notes = document.getElementById('notes').value;
+
+    const row = document.createElement('tr');
+    row.innerHTML = `
+      <td>${serviceType}</td>
+      <td>${date}</td>
+      <td>${notes}</td>
+    `;
+
+    tableBody.appendChild(row);
+    form.reset();
+  });
+</script>
 </body>
 </html>
